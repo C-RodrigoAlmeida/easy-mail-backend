@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+from os import environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +26,34 @@ SECRET_KEY = 'django-insecure-er1rvq7ve&_)j0yok)b9wj8ag&=4no&m__+@@kg5c&#ma5w%2%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    *environ.get("ALLOWED_HOSTS", "*").split("|"),
+]
+
+# CORS
+CORS_ALLOW_ALL_ORIGINS = environ.get("CORS_ALLOW_ALL_ORIGINS", "false").lower() == "true"
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGINS = [
+    *environ.get("ALLOWED_ORIGINS_FE", "http://127.0.0.1:4200|http://localhost:4200").split("|"),
+    *environ.get("ALLOWED_ORIGINS_BE", "http://127.0.0.1:8000|http://localhost:8000").split("|"),
+]
+
+CSRF_COOKIE_NAME = "csrftoken"
+CSRF_HEADER_NAME = "CSRF_COOKIE"
+CSRF_TRUSTED_ORIGINS = [
+    *environ.get("ALLOWED_ORIGINS_FE", "http://127.0.0.1:4200|http://localhost:4200").split("|"),
+    *environ.get("ALLOWED_ORIGINS_BE", "http://127.0.0.1:8000|http://localhost:8000").split("|"),
+]
+
+SESSION_COOKIE_SECURE = environ.get("SESSION_COOKIE_SECURE", "false").lower() == "true"
+CSRF_COOKIE_SECURE = SESSION_COOKIE_SECURE
+CSRF_COOKIE_HTTPONLY = False
+if CSRF_COOKIE_SECURE:
+    CSRF_COOKIE_SAMESITE = None
+else:
+    CSRF_COOKIE_SAMESITE = "Lax"
+
 
 
 # Application definition
@@ -126,3 +154,19 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#DRF
+REST_FRAMEWORK = {
+    # 'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ],
+    "DEFAULT_FILTER_BACKENDS": [
+        "django_filters.rest_framework.DjangoFilterBackend"
+    ],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 50
+}
