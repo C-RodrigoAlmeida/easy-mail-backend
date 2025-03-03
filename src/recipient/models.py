@@ -10,4 +10,4 @@ class RecipientModel(BaseModel):
   email = models.EmailField(null=False, blank=False)
 
   def __str__(self):
-    return f"Owner:{self.owner.username} | Contact: {self.email}"
+    return f"Owner:{self.owner.username} | Contact: {self.email}" 
