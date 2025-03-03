@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'src.accounts',
+    'src.inbox',
+    'src.recipient',
     'src.recipient_group',
-    'src.template',
-    'src.accounts'
 ]
 
 MIDDLEWARE = [
