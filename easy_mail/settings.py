@@ -68,8 +68,7 @@ INSTALLED_APPS = [
     
     'src.accounts',
     'src.inbox',
-    'src.recipient',
-    'src.recipient_group',
+    'src.contacts',
 ]
 
 MIDDLEWARE = [

@@ -1,7 +1,7 @@
 from django.contrib import admin
-from src.recipient_group.models import RecipientGroupModel
+from src.contacts.models.recipient_group_model import RecipientGroupModel
 
 @admin.register(RecipientGroupModel)
-class AirportAdmin(admin.ModelAdmin):
+class RecipientGroupAdmin(admin.ModelAdmin):
     list_display = ('owner', 'title')
     search_fields = ('owner', 'title')
