@@ -26,23 +26,21 @@ SECRET_KEY = 'django-insecure-er1rvq7ve&_)j0yok)b9wj8ag&=4no&m__+@@kg5c&#ma5w%2%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    *environ.get("ALLOWED_HOSTS", "*").split("|"),
-]
+ALLOWED_HOSTS = []
 
 # CORS
 CORS_ALLOW_ALL_ORIGINS = environ.get("CORS_ALLOW_ALL_ORIGINS", "false").lower() == "true"
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
-    *environ.get("ALLOWED_ORIGINS_FE", "http://127.0.0.1:5173|http://localhost:5173").split("|"),
+    *environ.get("ALLOWED_ORIGINS_FE", "http://127.0.0.1:4200|http://localhost:4200").split("|"),
     *environ.get("ALLOWED_ORIGINS_BE", "http://127.0.0.1:8000|http://localhost:8000").split("|"),
 ]
 
 CSRF_COOKIE_NAME = "csrftoken"
 CSRF_HEADER_NAME = "CSRF_COOKIE"
 CSRF_TRUSTED_ORIGINS = [
-    *environ.get("ALLOWED_ORIGINS_FE", "http://127.0.0.1:5173|http://localhost:5173").split("|"),
+    *environ.get("ALLOWED_ORIGINS_FE", "http://127.0.0.1:4200|http://localhost:4200").split("|"),
     *environ.get("ALLOWED_ORIGINS_BE", "http://127.0.0.1:8000|http://localhost:8000").split("|"),
 ]
 
@@ -54,8 +52,6 @@ if CSRF_COOKIE_SECURE:
 else:
     CSRF_COOKIE_SAMESITE = "Lax"
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -65,6 +61,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+    'drf_spectacular',
     
     'src.accounts',
     'src.inbox',
@@ -147,7 +146,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -156,7 +155,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #DRF
 REST_FRAMEWORK = {
-    # 'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
     ],
@@ -168,4 +167,12 @@ REST_FRAMEWORK = {
     # ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 50
+}
+
+#SEPCTACULAR
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Learning Games For Kids API',
+    'DESCRIPTION': 'API for learning games for kids',
+    'VERSION': '1.0.0',
+    'SCHEMA_PATH_PREFIX': '/api',
 }
