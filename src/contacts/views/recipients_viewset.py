@@ -3,9 +3,12 @@ from django.db.models import QuerySet
 from rest_framework import viewsets
 from rest_framework.serializers import ModelSerializer
 
+from drf_spectacular.utils import extend_schema
+
 from src.contacts.models import RecipientModel
 from src.contacts.serializers import MutateRecipientSerializer, GetRecipientSerializer
 
+@extend_schema(tags=['Recipient'])
 class RecipientViewSet(viewsets.ModelViewSet):
     queryset = RecipientModel.objects.all()
 
