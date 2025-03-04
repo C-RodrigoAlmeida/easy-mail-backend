@@ -12,6 +12,10 @@ class MutateRecipientSerializer(BaseRecipientSerializer):
   class Meta(BaseRecipientSerializer.Meta):
     pass
 
+class DisplayRecipientSerializer(BaseRecipientSerializer):
+  class Meta(BaseRecipientSerializer.Meta):
+    pass
+
 class GetRecipientSerializer(BaseRecipientSerializer):
   groups = serializers.SerializerMethodField()
   

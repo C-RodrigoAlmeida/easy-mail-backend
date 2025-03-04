@@ -12,5 +12,8 @@ class RecipientGroupModel(BaseModel):
   class Meta:
     ordering = ['title']
 
+  def get_recipients_amount(self) -> int:
+    return self.recipients.count()
+
   def __str__(self) -> str:
-    return f"{self.title}"
+    return self.title

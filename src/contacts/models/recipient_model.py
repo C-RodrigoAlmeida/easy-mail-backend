@@ -16,4 +16,4 @@ class RecipientModel(BaseModel):
     return ', '.join(group.title for group in self.groups.all())
 
   def __str__(self) -> str:
-    return f"Owner:{self.owner.username} | Contact: {self.email}" 
+    return self.email 
