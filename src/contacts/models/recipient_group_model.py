@@ -8,3 +8,9 @@ class RecipientGroupModel(BaseModel):
   owner = models.ForeignKey(User, on_delete=models.CASCADE)
   title = models.TextField(null=False, blank=False)
   recipients = models.ManyToManyField(RecipientModel, related_name="groups")
+
+  class Meta:
+    ordering = ['title']
+
+  def __str__(self) -> str:
+    return f"{self.title}"

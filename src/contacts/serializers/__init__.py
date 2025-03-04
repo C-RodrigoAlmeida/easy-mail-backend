@@ -1,3 +1,3 @@
-from .recipient_serializer import RecipientSerializer
+from .recipient_serializer import MutateRecipientSerializer, GetRecipientSerializer
 
-__all__ = ['RecipientSerializer']
+__all__ = ['MutateRecipientSerializer', 'GetRecipientSerializer']

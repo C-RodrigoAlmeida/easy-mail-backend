@@ -9,5 +9,11 @@ class RecipientModel(BaseModel):
   name = models.TextField(null=False, blank=False)
   email = models.EmailField(null=False, blank=False)
 
-  def __str__(self):
+  class Meta:
+    ordering = ['name']
+  
+  def get_groups(self) -> str:
+    return ', '.join(group.title for group in self.groups.all())
+
+  def __str__(self) -> str:
     return f"Owner:{self.owner.username} | Contact: {self.email}" 
