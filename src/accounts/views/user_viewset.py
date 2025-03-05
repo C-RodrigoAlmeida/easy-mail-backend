@@ -2,11 +2,11 @@ from rest_framework import viewsets, mixins, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from django.contrib.auth.models import User
+from drf_spectacular.utils import extend_schema
 
 from src.accounts.serializers import UserMutationSerializer
+from src.accounts.models import CustomUser
 
-from drf_spectacular.utils import extend_schema
 
 @extend_schema(tags=['Account'])
 class UserViewSet(
@@ -18,7 +18,7 @@ class UserViewSet(
     serializer_class = UserMutationSerializer
     permission_classes = [IsAuthenticated]
 
-    def get_object(self) -> User:
+    def get_object(self) -> CustomUser:
         """Returns the currently authenticated user instead of looking up by ID."""
         return self.request.user
 
