@@ -31,7 +31,11 @@ class UserViewSet(
     def create(self, request) -> Response:
         """Creates user with hashed password"""
         password = request.data.pop('password', None)
-        user = CustomUser(request.data)
+        user = CustomUser(
+            first_name=request.data['first_name'],
+            last_name=request.data['last_name'],
+            email=request.data['email']
+        )
         if password:
             user.set_password(password)
         user.save()
