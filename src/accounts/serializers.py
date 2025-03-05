@@ -14,6 +14,6 @@ class UserMutationSerializer(BaseUserSerializer):
   class Meta(BaseUserSerializer.Meta):
     fields = [*BaseUserSerializer.Meta.fields, 'first_name', 'last_name']
 
-class UserLoginSerializer(BaseUserSerializer):
+class UserAuthSerializer(BaseUserSerializer):
   class Meta(BaseUserSerializer.Meta):
     pass

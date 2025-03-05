@@ -7,12 +7,12 @@ from django.contrib.auth import login
 
 from drf_spectacular.utils import extend_schema
 
-from src.accounts.serializers import UserLoginSerializer
+from src.accounts.serializers import UserAuthSerializer
 
 @extend_schema(tags=['Auth'])
 class LoginView(APIView):
     permission_classes = [AllowAny]
-    serializer_class = UserLoginSerializer
+    serializer_class = UserAuthSerializer
 
     def post(self, request) -> Response:
         serializer = self.serializer_class(data=request.data) 
