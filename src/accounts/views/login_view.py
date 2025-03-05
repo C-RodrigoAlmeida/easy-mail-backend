@@ -18,7 +18,7 @@ class LoginView(APIView):
         email = serializer.validated_data["email"]
         password = serializer.validated_data["password"]
         
-        user = authenticate(username=email, password=password)
+        user = authenticate(email=email, password=password)
         if not user:
             return Response({"error": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
 
