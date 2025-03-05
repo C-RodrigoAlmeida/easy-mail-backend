@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-er1rvq7ve&_)j0yok)b9wj8ag&=4no&m__+@@kg5c&#ma5w%2%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["http://127.0.0.1:5173|http://localhost:5173".split("|")]
+ALLOWED_HOSTS = [*"http://127.0.0.1:5173|http://localhost:5173".split("|")]
 
 # CORS
 CORS_ALLOW_ALL_ORIGINS = environ.get("CORS_ALLOW_ALL_ORIGINS", "false").lower() == "true"
