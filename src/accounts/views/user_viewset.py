@@ -4,6 +4,7 @@ from rest_framework.response import Response
 
 from drf_spectacular.utils import extend_schema
 
+from src.core.permissions import IsNotAuthenticated
 from src.accounts.serializers import UserMutationSerializer
 from src.accounts.models import CustomUser
 
@@ -16,12 +17,17 @@ class UserViewSet(
     viewsets.GenericViewSet
 ):
     serializer_class = UserMutationSerializer
-    permission_classes = [IsAuthenticated]
+
+    def get_permissions(self):
+        if self.action == 'create':
+            return [IsNotAuthenticated()]
+        
+        return [permission() for permission in self.permission_classes]
 
     def get_object(self) -> CustomUser:
         """Returns the currently authenticated user instead of looking up by ID."""
         return self.request.user
-
+    
     def create(self, request, *args, **kwargs) -> Response:
         """Overrides create to prevent multiple users from being created per session."""
         if request.user.is_authenticated:
