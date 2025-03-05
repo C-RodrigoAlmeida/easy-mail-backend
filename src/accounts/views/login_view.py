@@ -18,7 +18,8 @@ class LoginView(APIView):
         serializer = self.serializer_class(data=request.data) 
         
         if serializer.is_valid():
-            user = serializer.validated_data['user'] 
+            user = serializer.validated_data
+
             login(request, user)
             return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
         
