@@ -28,19 +28,25 @@ class UserViewSet(
         """Returns the currently authenticated user instead of looking up by ID."""
         return self.request.user
     
-    def create(self, request, *args, **kwargs) -> Response:
-        """Overrides create to prevent multiple users from being created per session."""
-        if request.user.is_authenticated:
-            return Response({'detail': 'You are already authenticated.'}, status=status.HTTP_400_BAD_REQUEST)
-        return super().create(request, *args, **kwargs)
+    def create(self, validated_data):
+        """Creates user with hashed password"""
+        password = validated_data.pop('password', None)
+        user = self.Meta.model(**validated_data)
+        if password:
+            user.set_password(password)
+        user.save()
+        return user
 
-    def update(self, request, *args, **kwargs) -> Response:
-        """Updates the authenticated user's data."""
-        user = self.get_object()
-        serializer = self.get_serializer(user, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+    def update(self, instance, validated_data):
+        """Updates the authenticated user's data"""
+        password = validated_data.pop('password', None)
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        
+        if password:
+            instance.set_password(password)
+        instance.save()
+        return instance
 
     def destroy(self, request, *args, **kwargs) -> Response:
         """Deletes the authenticated user's account."""
