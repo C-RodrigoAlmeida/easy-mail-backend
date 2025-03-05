@@ -1,26 +1,26 @@
-from rest_framework import status
+from django.contrib.auth import authenticate, login
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.permissions import AllowAny
 
-from django.contrib.auth import login
+from src.accounts.serializers import AuthSerializer
 
-from drf_spectacular.utils import extend_schema
-
-from src.accounts.serializers import UserAuthSerializer
-
-@extend_schema(tags=['Auth'])
 class LoginView(APIView):
     permission_classes = [AllowAny]
-    serializer_class = UserAuthSerializer
 
     def post(self, request) -> Response:
-        serializer = self.serializer_class(data=request.data) 
-        
-        if serializer.is_valid():
-            user = serializer.validated_data
+        serializer = AuthSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-            login(request, user)
-            return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
+        email = serializer.validated_data["email"]
+        password = serializer.validated_data["password"]
         
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        user = authenticate(username=email, password=password)
+        if not user:
+            return Response({"error": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
+
+        login(request, user)
+        return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
