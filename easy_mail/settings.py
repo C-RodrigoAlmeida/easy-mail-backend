@@ -84,6 +84,8 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 
 ROOT_URLCONF = 'easy_mail.urls'
 
+APPEND_SLASH = False
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
