@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-er1rvq7ve&_)j0yok)b9wj8ag&=4no&m__+@@kg5c&#ma5w%2%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [*"http://127.0.0.1:5173|http://localhost:5173".split("|"), *"http://127.0.0.1:8000|http://localhost:8000".split("|")]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # CORS
 CORS_ALLOW_ALL_ORIGINS = environ.get("CORS_ALLOW_ALL_ORIGINS", "false").lower() == "true"
@@ -39,10 +39,8 @@ CORS_ALLOWED_ORIGINS = [
 
 CSRF_COOKIE_NAME = "csrftoken"
 CSRF_HEADER_NAME = "CSRF_COOKIE"
-CSRF_TRUSTED_ORIGINS = [
-    *environ.get("ALLOWED_ORIGINS_FE", "http://127.0.0.1:5173|http://localhost:5173").split("|"),
-    *environ.get("ALLOWED_ORIGINS_BE", "http://127.0.0.1:8000|http://localhost:8000").split("|"),
-]
+
+CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS
 
 SESSION_COOKIE_SECURE = environ.get("SESSION_COOKIE_SECURE", "false").lower() == "true"
 CSRF_COOKIE_SECURE = SESSION_COOKIE_SECURE
