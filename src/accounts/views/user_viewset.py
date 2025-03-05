@@ -28,10 +28,10 @@ class UserViewSet(
         """Returns the currently authenticated user instead of looking up by ID."""
         return self.request.user
     
-    def create(self, validated_data):
+    def create(self, request):
         """Creates user with hashed password"""
-        password = validated_data.pop('password', None)
-        user = self.Meta.model(**validated_data)
+        password = request.data.pop('password', None)
+        user = CustomUser(email=request.data['email'])
         if password:
             user.set_password(password)
         user.save()
