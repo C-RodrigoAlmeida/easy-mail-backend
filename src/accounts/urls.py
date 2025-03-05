@@ -9,7 +9,7 @@ user_viewset = UserViewSet.as_view({
 })
 
 urlpatterns = [
-    path('login/', LoginView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
-    path('account/', user_viewset, name='user-viewset')
+    path('login', LoginView.as_view(), name='login'),
+    path('logout', LogoutView.as_view(), name='logout'),
+    path('account', user_viewset, name='user-viewset')
 ]
