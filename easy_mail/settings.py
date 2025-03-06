@@ -177,7 +177,7 @@ REST_FRAMEWORK = {
 #SEPCTACULAR
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Easy Mail API Service',
-    'DESCRIPTION': 'Backend API for Easy Mail project',
+    'DESCRIPTION': 'Backend API for Easy Mail project with a session based authentication',
     'VERSION': '1.0.0',
     'SCHEMA_PATH_PREFIX': '/api',
 }
