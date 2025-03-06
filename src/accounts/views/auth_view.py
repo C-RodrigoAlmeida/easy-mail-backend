@@ -12,7 +12,7 @@ from src.core.permissions import IsNotAuthenticated
 
 @extend_schema(tags=['Auth'])
 class LoginView(APIView):
-  permission_classes = [IsNotAuthenticated()]
+  permission_classes = [IsNotAuthenticated]
 
   def post(self, request) -> Response:
     """Handles login requests"""

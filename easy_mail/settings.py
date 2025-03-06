@@ -176,8 +176,8 @@ REST_FRAMEWORK = {
 
 #SEPCTACULAR
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Learning Games For Kids API',
-    'DESCRIPTION': 'API for learning games for kids',
+    'TITLE': 'Easy Mail API Service',
+    'DESCRIPTION': 'Backend API for Easy Mail project',
     'VERSION': '1.0.0',
     'SCHEMA_PATH_PREFIX': '/api',
 }
