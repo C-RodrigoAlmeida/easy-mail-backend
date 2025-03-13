@@ -20,3 +20,6 @@ class RecipientViewSet(ModelViewSet):
             return GetRecipientSerializer
     
         return MutateRecipientSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)        

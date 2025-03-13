@@ -11,7 +11,9 @@ from src.inbox.serializers import TemplateSerializer
 class TemplateViewSet(ModelViewSet):
   queryset = TemplateModel.objects.all()
   serializer_class = TemplateSerializer
-  
 
   def get_queryset(self) -> QuerySet[TemplateModel]:
     return self.queryset.filter(owner=self.request.user)
+  
+  def perform_create(self, serializer):
+    serializer.save(self.request.user)
