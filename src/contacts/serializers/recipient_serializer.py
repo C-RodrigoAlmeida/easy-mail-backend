@@ -23,4 +23,4 @@ class GetRecipientSerializer(BaseRecipientSerializer):
     fields = [*BaseRecipientSerializer.Meta.fields, 'groups']
 
   def get_groups(self, obj) -> str:
-    return obj.get_group()
+    return obj.get_groups()
